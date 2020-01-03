@@ -50,6 +50,9 @@ for arg in $(cat /proc/cmdline); do
           *khadas_vim3*)
             SUBDEVICE="Khadas_VIM3"
             ;;
+          *lepotato)
+            SUBDEVICE="LePotato"
+            ;;
           *)
             SUBDEVICE="Generic"
             ;;
@@ -123,7 +126,7 @@ if [ -f $SYSTEM_ROOT/usr/share/bootloader/config.ini ]; then
   fi
 fi
 
-if [ "${SUBDEVICE}" == "Odroid_N2" ]; then
+if [ "${SUBDEVICE}" == "Odroid_N2" ] || [ "${SUBDEVICE}" == "LePotato" ]; then
   if [ -f $SYSTEM_ROOT/usr/share/bootloader/boot-logo-1080.bmp.gz ]; then
     echo "Updating boot logos..."
     cp -p $SYSTEM_ROOT/usr/share/bootloader/boot-logo-1080.bmp.gz $BOOT_ROOT
