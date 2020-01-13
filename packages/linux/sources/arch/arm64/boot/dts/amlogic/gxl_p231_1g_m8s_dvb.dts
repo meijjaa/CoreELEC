@@ -1,0 +1,98 @@
+/* This should be considered an incomplete totally unedcuated guess */
+
+#include "gxl_p231_1g.dts"
+
+/{
+	coreelec-dt-id = "gxl_p231_1g_m8s_dvb";
+	emmc@d0074000 {
+		status = "disabled";
+	};
+
+	mtd-nand {
+		status = "okay";
+	};
+
+	sysled {
+		led_gpio = <&gpio_ao GPIOAO_9 GPIO_ACTIVE_HIGH>;
+	};
+
+	dvb {
+		compatible = "amlogic,dvb";
+		dev_name = "avl6762";
+
+		fe0_demod = "Avl6211";
+		fe0_i2c_adap_id = <&i2c1>;
+		fe0_demod_i2c_addr = <0x14>;
+		fe0_ts = <0>;
+		fe0_reset_value = <0>;
+		fe0_reset_gpio = <&gpio GPIODV_13 GPIO_ACTIVE_HIGH>;
+		fe0_power_gpio = <&gpio GPIODV_14 GPIO_ACTIVE_LOW>;
+
+		ts0 = "parallel";
+		ts0_control = <0x0>;
+		ts0_invert = <0x0>;
+		fec_reset_gpio-gpios = <&gpio GPIODV_13 GPIO_ACTIVE_HIGH>;
+		power_ctrl_gpio-gpios = <&gpio GPIODV_11 GPIO_ACTIVE_LOW>;
+
+		pinctrl-names = "p_ts0", "s_ts0", "s_ts1";
+		pinctrl-0 = <&dvb_p_ts0_pins>;
+		pinctrl-1 = <&dvb_s_ts0_pins>;
+		pinctrl-2 = <&dvb_s_ts1_pins>;
+	};
+
+};
+
+&pinctrl_periphs {
+	dvb_p_ts0_pins: dvb_p_ts0_pins {
+			tsin_a {
+				groups = "GPIODV_0",
+				"GPIODV_1",
+				"GPIODV_2",
+				"GPIODV_3",
+				"GPIODV_4",
+				"GPIODV_5",
+				"GPIODV_6",
+				"GPIODV_7",
+				"GPIODV_8",
+				"GPIODV_9",
+				"GPIODV_10";
+				function = "tsin_a";
+			};
+		};
+	dvb_s_ts0_pins: dvb_s_ts0_pins {
+		tsin_a {
+			groups ="tsin_d0_a_dv0",
+				"tsin_clk_a_dv8",
+				"ttsin_sop_a_dv9",
+				"tsin_d_valid_a_dv10";
+			function = "tsin_a";
+		};
+	};
+
+	dvb_s_ts1_pins: dvb_s_ts1_pins {
+		tsin_b {
+			groups ="tsin_d0_a_dv0",
+				"tsin_clk_a_dv8",
+				"ttsin_sop_a_dv9",
+				"tsin_d_valid_a_dv10";
+			function = "tsin_b";
+		};
+	};
+};
+
+&i2c0 {
+	status = "okay";
+};
+
+&i2c1 {
+	status = "okay";
+};
+
+&i2c2 {
+	status = "okay";
+};
+
+&i2c3 {
+	status = "okay";
+};
+
