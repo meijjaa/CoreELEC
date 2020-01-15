@@ -16,29 +16,7 @@
 		led_gpio = <&gpio_ao GPIOAO_9 GPIO_ACTIVE_HIGH>;
 	};
 
-	dvb {
-		compatible = "amlogic,dvb";
-		dev_name = "avl6762";
 
-		fe0_demod = "Avl6211";
-		fe0_i2c_adap_id = <&i2c1>;
-		fe0_demod_i2c_addr = <0x14>;
-		fe0_ts = <0>;
-		fe0_reset_value = <0>;
-		fe0_reset_gpio = <&gpio GPIODV_13 GPIO_ACTIVE_HIGH>;
-		fe0_power_gpio = <&gpio GPIODV_14 GPIO_ACTIVE_LOW>;
-
-		ts0 = "parallel";
-		ts0_control = <0x0>;
-		ts0_invert = <0x0>;
-		fec_reset_gpio-gpios = <&gpio GPIODV_13 GPIO_ACTIVE_HIGH>;
-		power_ctrl_gpio-gpios = <&gpio GPIODV_11 GPIO_ACTIVE_LOW>;
-
-		pinctrl-names = "p_ts0", "s_ts0", "s_ts1";
-		pinctrl-0 = <&dvb_p_ts0_pins>;
-		pinctrl-1 = <&dvb_s_ts0_pins>;
-		pinctrl-2 = <&dvb_s_ts1_pins>;
-	};
 
 };
 
