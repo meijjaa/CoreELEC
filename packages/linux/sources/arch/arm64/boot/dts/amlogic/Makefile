@@ -40,6 +40,8 @@ dtb-$(CONFIG_ARM64) += gxl_p281_1g.dtb
 dtb-$(CONFIG_ARM64) += gxl_p281_1g_a95xr2.dtb
 dtb-$(CONFIG_ARM64) += gxl_p281_2g.dtb
 dtb-$(CONFIG_ARM64) += gxl_p281_2g_a95xr2.dtb
+dtb-$(CONFIG_ARM64) += gxm_q200_2g.dtb
+dtb-$(CONFIG_ARM64) += gxm_q200_kvim2.dtb
 
 always		:= $(dtb-y)
 subdir-y	:= $(dts-dirs)
