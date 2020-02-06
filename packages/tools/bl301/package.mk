@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Team CoreELEC (https://coreelec.org)
 
 PKG_NAME="bl301"
-PKG_VERSION="f3fe4daba3596d9a2698df50684ff48a54de203c"
-PKG_SHA256="9e37d926d6aa57ab58226a5d2921c0d4bb256b1916981806cfa41b89b0767705"
+PKG_VERSION="afaa5fd96a9bd83239d737a5cf701f066ecb5acd"
+PKG_SHA256="59a7211abd479e8174047e168e38aac17d086dec894c38458333b3c7bed6fcd5"
 PKG_LICENSE="GPL"
 PKG_SITE="https://coreelec.org"
 PKG_URL="https://github.com/CoreELEC/bl301/archive/$PKG_VERSION.tar.gz"
@@ -28,6 +28,7 @@ make_target() {
     DEBUG=${PKG_DEBUG} CROSS_COMPILE=aarch64-elf- ARCH=arm CFLAGS="" LDFLAGS="" make HOSTCC="${HOST_CC}" HOSTSTRIP="true" bl301.bin
     mv ${PKG_BUILD}/build/scp_task/bl301.bin ${PKG_BUILD}/build/${PKG_BL301_SUBDEVICE}_bl301.bin
     echo "moved blob to: " ${PKG_BUILD}/build/${PKG_BL301_SUBDEVICE}_bl301.bin
+    rm -rf ${PKG_BUILD}/build/scp_task
   done
 }
 
