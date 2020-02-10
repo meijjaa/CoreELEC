@@ -13,6 +13,11 @@
 			console-size = <0x8000>;
 			ftrace-size = <0x40000>;
 		};
+
+		codec_mm_cma:linux,codec_mm_cma {
+			size = <0x0 0x13400000>;
+		};
+
 	};
 
 	soc {
