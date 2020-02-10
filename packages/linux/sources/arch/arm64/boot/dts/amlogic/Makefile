@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARM64) += gxl_p212_2g_lepotato.dtb
 dtb-$(CONFIG_ARM64) += gxl_p212_2g_kvim.dtb
 dtb-$(CONFIG_ARM64) += gxl_p212_2g_g9sx.dtb
 dtb-$(CONFIG_ARM64) += gxl_p212_2g_slowemmc.dtb
+dtb-$(CONFIG_ARM64) += gxl_p212_3g.dtb
 dtb-$(CONFIG_ARM64) += gxl_p230_2g.dtb
 dtb-$(CONFIG_ARM64) += gxl_p230_k1_pro.dtb
 dtb-$(CONFIG_ARM64) += gxl_p230_k1_pro_ser.dtb
