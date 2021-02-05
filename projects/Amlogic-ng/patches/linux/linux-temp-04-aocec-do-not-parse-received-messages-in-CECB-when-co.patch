@@ -1,0 +1,27 @@
+From 30b4f7cadf0245d605186a42f24c7c16b3deaf03 Mon Sep 17 00:00:00 2001
+From: Portisch <hugo.portisch@yahoo.de>
+Date: Tue, 2 Feb 2021 12:23:24 +0100
+Subject: [PATCH 2/2] aocec: do not parse received messages in CECB when
+ controlled by system
+
+---
+ drivers/amlogic/cec/hdmi_ao_cec.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/amlogic/cec/hdmi_ao_cec.c b/drivers/amlogic/cec/hdmi_ao_cec.c
+index c333f4b0a3cd..650b230ea003 100644
+--- a/drivers/amlogic/cec/hdmi_ao_cec.c
++++ b/drivers/amlogic/cec/hdmi_ao_cec.c
+@@ -542,6 +542,9 @@ static bool cec_message_op(unsigned char *msg, unsigned char len)
+ {
+ 	int i, j;
+ 
++	if (cec_dev->hal_flag & (1 << HDMI_OPTION_SYSTEM_CEC_CONTROL))
++		return true;
++
+ 	if (((msg[0] & 0xf0) >> 4) == cec_dev->cec_info.log_addr) {
+ 		CEC_ERR("bad iniator with self 0x%x",
+ 			cec_dev->cec_info.log_addr);
+-- 
+2.30.0
+
