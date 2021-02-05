@@ -1,0 +1,76 @@
+# File used for analog stereo input, e.g. for measuring realiser.
+# Uses minphase coeffs.
+# Use together with 'as' start script.
+
+## DEFAULT GENERAL SETTINGS ##
+
+float_bits: 64;             # internal floating point precision
+sampling_rate: 48000;       # sampling rate in Hz of audio interfaces
+filter_length: 8192,32;      # length of filters
+# config_file: "/home/audiovero/.brutefir_config"; # standard location of main config file
+overflow_warnings: true;    # echo warnings to stderr if overflow occurs
+show_progress: false;        # echo filtering progress to stderr
+max_dither_table_size: 0;   # maximum size in bytes of precalculated dither
+allow_poll_mode: false;     # allow use of input poll mode
+modules_path: "/usr/lib/brutefir";   # extra path where to find BruteFIR modules
+monitor_rate: true;        # monitor sample rate
+powersave: -80;           # pause filtering when input is zero
+lock_memory: false;          # try to lock memory if realtime prio is set
+convolver_config: "brutefir_convolver"; # location of convolver config file
+#benchmark: true;
+
+## LOGIC ##
+
+logic: "cli" { port: 3000; };
+
+## COEFFS ##
+coeff "dirac" {
+    filename: "dirac pulse";
+    format: "FLOAT64_LE";
+    attenuation: 12.0;
+};
+
+coeff "l_out" {
+	filename: "/storage/ref meting L-filters-48k.wav";
+	format: "S32_LE";
+	skip:44;
+	attenuation: 12;
+};
+
+coeff "r_out" {
+	filename: "/storage/ref meting R-filters-48k.wav";
+	format: "S32_LE";
+	skip:44;
+	attenuation: 12;
+};
+
+## INPUT, OUTPUT ##							
+
+input "fleft", "fright" {
+    device: "alsa" { device: "hw:BruteFIR,1"; };
+#    device: "file" { path: "test_input.wav"; };
+    sample: "S32_LE";
+    channels: 2;
+};
+
+output "right", "left" {
+    device: "alsa" { device: "hw:AMLM8AUDIO"; };
+#    device: "file" { path: "test_output.wav"; };
+    sample: "S32_LE";
+    channels: 2;
+    delay: 0,0;
+    dither: false;
+};
+
+## FILTERS ##
+filter "frfilter" {
+       from_inputs: "fright";
+       to_outputs: "right";
+       coeff: "r_out";
+};
+
+filter "flfilter" {
+       from_inputs: "fleft";
+       to_outputs: "left";
+       coeff: "l_out";
+};
